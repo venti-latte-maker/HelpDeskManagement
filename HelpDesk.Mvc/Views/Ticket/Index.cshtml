@@ -1,0 +1,63 @@
+﻿@model IEnumerable<HelpDesk.Mvc.Models.TicketCreateEditViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">
+            Available Tickets
+        </h2>
+        <a asp-action="Create" class="btn btn-outline-dark">
+            Add new ticket
+        </a>
+
+    </div>
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            <h5>No tickets available.</h5>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow col-md-6">
+            <table class="table table-hover table-striped table-warning mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Ticket</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle fw-semibold">
+                                @item.Title
+                                <span class="fs-6 px-3 py-2">
+                                    @item.Status
+                                </span>
+                                <span class="text-dark fs-6 px-3 py-2">
+                                    @item.Priority
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                    Details
+                                </a>
+                                <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                    Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
