@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "MVC_API_Launch",
+    "Projects": [
+      {
+        "Path": "HelpDesk.Api\\HelpDesk.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "HelpDesk.Mvc\\HelpDesk.Mvc.csproj",
+        "Action": "Start"
+      }
+    ]
+  },
+  {
+    "Name": "New Profile (1)",
+    "Projects": []
+  }
+]
