@@ -40,17 +40,7 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Status" class="form-label"></label>
-                <select asp-for="Status" class="form-select">
-                    <option value="">-- Select Status --</option>
-                    <option value="Open">Open</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Closed">Closed</option>
-                </select>
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-
+            <input type="hidden" asp-for="Status" value="Open" />
             <input type="hidden" asp-for="CreatedDate" value="@DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss")" />
 
             <button type="submit" class="btn btn-primary">Create</button>

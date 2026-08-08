@@ -26,6 +26,9 @@ namespace HelpDesk.Mvc.Controllers
 
         public async Task<IActionResult> Status(string status)
         {
+            if (string.IsNullOrWhiteSpace(status))
+                return RedirectToAction("Index");
+
             var ticketList = await service.GetTicketByStatusAsync(status);
             return View(ticketList);
         }

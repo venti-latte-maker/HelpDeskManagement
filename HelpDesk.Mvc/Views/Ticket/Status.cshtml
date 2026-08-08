@@ -1,34 +1,34 @@
 ﻿@model IEnumerable<HelpDesk.Mvc.Models.TicketCreateEditViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Filtered Tickets";
+    var status = Context.Request.Query["status"].ToString();
 }
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-primary fw-bold">
-            Available Tickets
+            Tickets @(string.IsNullOrWhiteSpace(status) ? "" : $"— {status}")
         </h2>
-        <a asp-action="Create" class="btn btn-outline-dark">
-            Add new ticket
+        <a asp-action="Index" class="btn btn-outline-dark">
+            Back to all tickets
         </a>
-
     </div>
 
     <form asp-action="Status" method="get" class="d-flex align-items-center gap-2 mb-3">
         <label for="status" class="form-label mb-0">Filter by status:</label>
         <select name="status" id="status" class="form-select w-auto" onchange="this.form.submit()">
             <option value="">-- All --</option>
-            <option value="Open">Open</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Closed">Closed</option>
+            <option value="Open" selected="@(status == "Open")">Open</option>
+            <option value="In Progress" selected="@(status == "In Progress")">In Progress</option>
+            <option value="Closed" selected="@(status == "Closed")">Closed</option>
         </select>
     </form>
 
     @if (Model == null || !Model.Any())
     {
         <div class="alert alert-warning text-center">
-            <h5>No tickets available.</h5>
+            <h5>No tickets found for this status.</h5>
         </div>
     }
     else
@@ -47,23 +47,13 @@
                         <tr>
                             <td class="align-middle fw-semibold">
                                 @item.Title
-                                <span class="fs-6 px-3 py-2">
-                                    @item.Status
-                                </span>
-                                <span class="text-dark fs-6 px-3 py-2">
-                                    @item.Priority
-                                </span>
+                                <span class="fs-6 px-3 py-2">@item.Status</span>
+                                <span class="text-dark fs-6 px-3 py-2">@item.Priority</span>
                             </td>
                             <td class="text-center">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
-                                    Details
-                                </a>
-                                <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
-                                    Edit
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                    Delete
-                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     }
